@@ -1,21 +1,61 @@
 import requests
 
-"""
-Author: Vyacheslav Anzhiganov
-Email: vanzhiganov@ya.ru
-Date: 2014-12-01
-Version: 1.0
-"""
 
-
-class CloudnsClient:
+class CC:
     def __init__(self, email, secret):
-        self.cloudns_api_url = 'http://api.cloudns.ru/api.php'
+        self.endpoint = 'http://api.cloudns.ru/api'
         self.email = email
         self.secret = secret
 
-    def request(self, data):
-        return requests.post(self.cloudns_api_url, data=data)
+
+class CloudNSZones(CC):
+    def add(self, zone_name):
+        return requests.post(
+            self.endpoint + "/zones/",
+            auth=(self.email, self.secret),
+            data={"zone": zone_name},
+        ).json()
+
+    def get(self):
+        return requests.get(
+            self.endpoint + "/zones/",
+            auth=(self.email, self.secret)
+        ).json()
+
+    def delete(self, zone_id):
+        return requests.delete(
+            self.endpoint + '/zones/',
+            auth=(self.email, self.secret),
+            data={"zone_id": zone_id}
+        ).json()
+
+    # TODO: create method `update()`
+    def update(self):
+        return None
+
+
+class CloudNSLayers(CC):
+    def get(self, zone_id):
+        return requests.get(
+            "%s/zones/%s/layers/" % (self.endpoint, zone_id),
+            auth=(self.email, self.secret)
+        ).json()
+
+    def create(self):
+        return None
+
+    def delete(self):
+        return None
+
+    def update(self):
+        return None
+
+class CloudNSRecords(CC):
+    def get(self, zone_id, layer='default'):
+        return requests.get(
+            "%s/zones/%s/records/?layer=%s" % (self.endpoint, zone_id, layer),
+            auth=(self.email, self.secret)
+        ).json()
 
     def domain_record_get_items(self, domain):
         data = {
