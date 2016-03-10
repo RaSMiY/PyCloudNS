@@ -57,45 +57,16 @@ class CloudNSRecords(CC):
             auth=(self.email, self.secret)
         ).json()
 
-    def domain_record_get_items(self, domain):
-        data = {
-            "email": self.email,
-            "secret": self.secret,
-            'method': "domain_record_get_items",
-            "domain": domain
-        }
-        return self.request(data)
+    def add(self, zone_id, layer, name, ttl, rtype, data, priority=0):
+        return requests.post(
+            "%s/zones/%s/records/" % (self.endpoint, zone_id),
+            auth=(self.email, self.secret),
+            data={'layer': layer, 'name': name, 'ttl': ttl, 'type': rtype, 'data': data, 'priority': priority},
+        ).json()
 
-    def domain_record_delete(self, domain, record_id):
-        data = {
-            "email": self.email,
-            "secret": self.secret,
-            'method': "domain_record_delete",
-            "domain": domain,
-            "record_id": record_id
-        }
-        return self.request(data)
-
-    def domain_record_delete_by_host(self, domain, host, rtype):
-        data = {
-            "email": self.email,
-            "secret": self.secret,
-            'method': "domain_record_delete_by_host",
-            "domain": domain,
-            "host": host,
-            "type": rtype
-        }
-        return self.request(data)
-
-    def domain_record_add(self, domain, host, rtype, destination, priority=0):
-        data = {
-            "email": self.email,
-            "secret": self.secret,
-            'method': "domain_record_add",
-            "domain": domain,
-            "host": host,
-            "type": rtype,
-            "destination": destination,
-            "priority": priority,
-        }
-        return self.request(data)
+    def delete(self, zone_id, layer, record_id):
+        return requests.delete(
+            "%s/zones/%s/records/" % (self.endpoint, zone_id),
+            auth=(self.email, self.secret),
+            data={'layer': layer, 'record_id': record_id}
+        ).json()
