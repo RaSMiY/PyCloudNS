@@ -9,22 +9,33 @@ Package on PyPi: https://pypi.python.org/pypi/PyCloudNS
 Import & define auth parameters
 
 ```
-from PyCloudNS import CloudNSZones, CloudNSLayers, CloudNSRecords
+from PyCloudNS import CloudNSZones
+from PyCloudNS import CloudNSLayers
+from PyCloudNS import CloudNSRecords
+```
 
+```
 email = dev@gmail.com
 secret = mySecretAPIKEY123
 ```
 
 Get list all zones
 
-`CloudNSZones(email, secret).get()`
+```
+CloudNSZones(email, secret).get()
+```
 
 Get zone by ID
-`CloudNSZones(email, secret).get(zone_id=10)`
+
+```
+CloudNSZones(email, secret).get(zone_id=10)
+```
 
 Get zone by name
 
-`CloudNSZones(email, secret).get(zone_name='test5.com')`
+```
+CloudNSZones(email, secret).get(zone_name='test5.com')
+```
 
 Add new DNS zone
 
