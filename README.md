@@ -2,6 +2,8 @@
 
 Python CloudNS API Client library
 
+Package on PyPi: https://pypi.python.org/pypi/PyCloudNS
+
 ## How to use
 
 Import & define auth parameters
@@ -35,5 +37,3 @@ Delete zone
 ```
 CloudNSZones(email, secret).delete(1)
 ```
-
-# print cz.delete('test1.com')
