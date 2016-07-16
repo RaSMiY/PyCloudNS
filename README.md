@@ -15,9 +15,14 @@ secret = mySecretAPIKEY123
 
 Get list all zones
 
-```
-CloudNSZones(email, secret).get()
-```
+`CloudNSZones(email, secret).get()`
+
+Get zone by ID
+`CloudNSZones(email, secret).get(zone_id=10)`
+
+Get zone by name
+
+`CloudNSZones(email, secret).get(zone_name='test5.com')`
 
 Add new DNS zone
 
@@ -30,3 +35,5 @@ Delete zone
 ```
 CloudNSZones(email, secret).delete(1)
 ```
+
+# print cz.delete('test1.com')
