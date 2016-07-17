@@ -12,7 +12,7 @@ with open(path.join(here, 'README.md')) as f:
 
 setup(
     name='PyCloudNS',
-    version='2.0.5',
+    version='2.0.6',
     description='Python Lib for DNS API on CloudNS.ru',
     long_description=long_description,
     url='http://cloudns.ru',
