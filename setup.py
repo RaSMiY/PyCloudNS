@@ -3,7 +3,7 @@ from setuptools import setup
 
 setup(
     name='PyCloudNS',
-    version='2.0.2',
+    version='3.0.0',
     author='Vyacheslav Anzhiganov',
     author_email='hello@anzhiganov.com',
     packages=[
