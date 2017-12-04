@@ -1,32 +1,26 @@
 # coding: utf-8
 
-import requests
-from .common import CC
+from .req import Req
 
 
-class CloudNSZones(CC):
-    def get(self, zone_name=None, zone_id=None):
-        """Get list domains
-        """
-        if zone_name:
-            return self.api_get("/zones/", {"zone_name": zone_name})
-        elif zone_id:
-            return self.api_get("/zones/", {"zone_id": zone_id})
-        else:
-            return self.api_get("/zones/")
+class Zones(Req):
+    def __init__(self, url, email, secret):
+        super().__init__(url=url, email=email, secret=secret)
 
-    def add(self, zone_name):
-        """Create a new zone
-        """
-        return self.api_post("/zones/", data={"zone": zone_name})
+    def get(self):
+        """Get list domains"""
+        return self.do_get("/zones/")
 
-    def delete(self, zone_id):
-        """Delete specified zone by ID
-        """
-        return self.api_delete('/zones/', data={"zone_id": zone_id})
+    def create(self, **zone_details):
+        """Create a new zone"""
+        return self.do_post("/zones/", data=zone_details)
+
+    def delete(self, zone_name):
+        """Delete specified zone by ID"""
+        return self.do_delete('/zones/{}'.format(zone_name))
 
     def update(self):
-        """Update zone
-        TODO: create method `update()`
-        """
+        """Update zone"""
+        # TODO: create method `update()`
+
         return None

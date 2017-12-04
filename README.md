@@ -1,6 +1,6 @@
 # PyCloudNS
 
-Python CloudNS API Client library
+Python ZettaDNS API Client library
 
 Package on PyPi: https://pypi.python.org/pypi/PyCloudNS
 
@@ -8,43 +8,62 @@ Package on PyPi: https://pypi.python.org/pypi/PyCloudNS
 
 Import & define auth parameters
 
-```
-from PyCloudNS import CloudNSZones
-from PyCloudNS import CloudNSLayers
-from PyCloudNS import CloudNSRecords
-```
+    from PyCloudNS import CloudNS
 
-```
-email = dev@gmail.com
-secret = mySecretAPIKEY123
-```
+    ns = CloudNS()
+    ns.email = 'email@gmail.com'
+    ns.secret = 'mySecretAPIKEY123'
+
+### Zones
 
 Get list all zones
 
-```
-CloudNSZones(email, secret).get()
-```
-
-Get zone by ID
-
-```
-CloudNSZones(email, secret).get(zone_id=10)
-```
-
-Get zone by name
-
-```
-CloudNSZones(email, secret).get(zone_name='test5.com')
-```
+    ns.zones().get()
 
 Add new DNS zone
 
-```
-CloudNSZones(email, secret).add('mydomain.com')
-```
+    ns.zones().create('mydomain.com', zone_type='master', geo=False)
 
 Delete zone
 
-```
-CloudNSZones(email, secret).delete(1)
-```
+    ns.zones().delete("mydomain.com")
+
+### Layers
+
+Get layers
+
+    ns.layers().get("mydomain.com")
+
+Response
+
+    {"items": ["default"], "status": 0, "total": 1}
+
+Delete layer
+
+    ns.layers().delete("mydomain.com", "qwerrty")
+
+### Records
+
+Get records
+
+    ns.records().get("mydomain.com", "default")
+
+Create new record
+
+    ns.records().create("mydomain.com", "default", name="test1", ttl=12345, rtype="A", data="1.2.3.4"))
+
+Update record
+
+    ns.records().update("mydomain.com", "default", 4, )
+
+Delete record
+
+    ns.records().delete("mydomain.com", "default", 4)
+
+### Regions
+
+    ns.regions().get()
+
+Response
+
+    {'items': ['polinesia'], 'status': 0, 'total': 23}

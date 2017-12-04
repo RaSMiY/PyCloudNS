@@ -1,19 +1,18 @@
-from .common import CC
-import requests
+from .req import Req
 
 
-class CloudNSLayers(CC):
-    def get(self, zone_id):
-        return requests.get(
-            "%s/zones/%s/layers/" % (self.endpoint, zone_id),
-            auth=(self.email, self.secret)
-        ).json()
+class Layers(Req):
+    def __init__(self, url, email, secret):
+        super().__init__(url=url, email=email, secret=secret)
 
-    def create(self):
-        return None
+    def get(self, zone):
+        return self.do_get("/zones/{}".format(zone))
 
-    def delete(self):
-        return None
+    def create(self, zone, regions):
+        return self.do_post("/zones/{}".format(zone), data={'regions': regions})
+
+    def delete(self, zone, layer):
+        return self.do_delete("/zones/{}/{}".format(zone, layer))
 
     def update(self):
         return None

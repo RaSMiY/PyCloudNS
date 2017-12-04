@@ -12,14 +12,9 @@ with open(path.join(here, 'README.md')) as f:
 
 setup(
     name='PyCloudNS',
-    version='2.0.6',
-    description='Python Lib for DNS API on CloudNS.ru',
-    long_description=long_description,
-    url='http://cloudns.ru',
+    version='3.0.0',
     author='Vyacheslav Anzhiganov',
     author_email='hello@anzhiganov.com',
-    license='MIT',
-    # packages=find_packages(exclude=['contrib', 'docs', 'tests*']),
     packages=[
         'PyCloudNS'
     ],
@@ -29,7 +24,6 @@ setup(
     keywords='public dns service',
     classifiers=[
         'License :: OSI Approved :: MIT License',
-        'Programming Language :: Python :: 2',
-        'Programming Language :: Python :: 2.7',
+        'Programming Language :: Python :: 3'
     ],
 )
